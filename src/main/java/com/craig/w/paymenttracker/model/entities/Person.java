@@ -15,7 +15,7 @@ public class Person {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "holiday_id")
     private Holiday holiday;
@@ -61,4 +61,14 @@ public class Person {
         this.toPay = toPay;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", holiday=" + holiday +
+                ", name='" + name + '\'' +
+                ", toPay=" + toPay +
+                ", payments=" + payments +
+                '}';
+    }
 }
