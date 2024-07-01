@@ -60,15 +60,4 @@ public class Person {
     public void setToPay(BigDecimal toPay) {
         this.toPay = toPay;
     }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", holiday=" + holiday +
-                ", name='" + name + '\'' +
-                ", toPay=" + toPay +
-                ", payments=" + payments +
-                '}';
-    }
 }

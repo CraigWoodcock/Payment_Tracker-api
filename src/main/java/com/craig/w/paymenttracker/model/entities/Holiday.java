@@ -57,4 +57,22 @@ public class Holiday {
         this.numPeople = numPeople;
     }
 
+    @Override
+    public String toString() {
+        return "Holiday{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", totalAmount=" + totalAmount +
+                ", numPeople=" + numPeople +
+                ", people=" + people +
+                '}';
+    }
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(List<Person> people) {
+
+    }
 }

@@ -29,4 +29,16 @@ public class HolidayService {
     public Optional<Holiday> getHolidayByName(String name) {
         return holidayRepository.findAllByName(name);
     }
+
+    public Holiday findHolidayById(Integer id) {
+        return holidayRepository.findById(id).orElse(null);
+    }
+
+    public Holiday saveHoliday(Holiday holiday) {
+        return holidayRepository.save(holiday);
+    }
+
+    public Holiday findAllHolidays() {
+        return  holidayRepository.findAll();
+    }
 }
