@@ -8,6 +8,19 @@
     <title>Holiday Details</title>
 </head>
 <body>
-<h1>Holiday Details</h1>
+<h1 th:text="${holiday.name}">Plan Details</h1>
+<p>Total Amount: <span th:text="${holiday.totalAmount}">Total Amount</span></p>
+<p>Number of People: <span th:text="${holiday.numPeople}">Number of People</span></p>
+<h2>People:</h2>
+<ul>
+    <li th:each="person : ${holiday.people}">
+        <a th:href="@{/people/{id}(id=${person.id})}" th:text="${person.name}">Person Name</a> - To Pay: <span th:text="${person.toPay}">Amount</span>
+    </li>
+</ul>
+<a th:href="@{/payments/add(holidayId=${holiday.id})}">Add Payment</a><br>
+<a th:href="@{/holidays}">Back to Holidays</a>
+
+
+
 </body>
 </html> 
