@@ -8,5 +8,6 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
 
+    List<Person> findByHolidayId(Integer holidayId);
 }
 

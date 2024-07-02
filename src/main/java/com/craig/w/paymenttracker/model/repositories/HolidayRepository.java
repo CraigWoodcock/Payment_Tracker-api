@@ -8,5 +8,4 @@ import java.util.Optional;
 public interface HolidayRepository extends JpaRepository<Holiday, Integer> {
     Optional<Holiday> findAllByName(String name);
 
-    Object findAllById(Long id);
 }

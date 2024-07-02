@@ -1,7 +1,6 @@
 package com.craig.w.paymenttracker.controllers;
 
 import com.craig.w.paymenttracker.model.entities.Holiday;
-import com.craig.w.paymenttracker.model.entities.Person;
 import com.craig.w.paymenttracker.model.services.HolidayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -41,27 +38,33 @@ public class HolidayController {
 
     @PostMapping("/create")
     public String createHoliday(@RequestParam String name, @RequestParam BigDecimal totalAmount, @RequestParam int numPeople, @RequestParam String personNames) {
-        Holiday holiday = new Holiday();
-
-        holiday.setName(name);
-        holiday.setTotalAmount(totalAmount);
-        holiday.setNumPeople(numPeople);
-
-        String[] names = personNames.split(",");
-        List<Person> people = new ArrayList<>();
-        for(String personName : names) {
-            Person person = new Person();
-
-            person.setName(personName.trim());
-            person.setToPay(totalAmount.divide(new BigDecimal(numPeople)));
-            person.setHoliday(holiday);
-            people.add(person);
-        }
-        holiday.setPeople(people);
-        holidayService.saveHoliday(holiday);
-
+        holidayService.createHoliday(name, totalAmount, numPeople, personNames);
         return "redirect:/holidays";
     }
+
+//    @PostMapping("/create")
+//    public String createHoliday(@RequestParam String name, @RequestParam BigDecimal totalAmount, @RequestParam int numPeople, @RequestParam String personNames) {
+//        Holiday holiday = new Holiday();
+//
+//        holiday.setName(name);
+//        holiday.setTotalAmount(totalAmount);
+//        holiday.setNumPeople(numPeople);
+//
+//        String[] names = personNames.split(",");
+//        List<Person> people = new ArrayList<>();
+//        for(String personName : names) {
+//            Person person = new Person();
+//
+//            person.setName(personName.trim());
+//            person.setToPay(totalAmount.divide(new BigDecimal(numPeople)));
+//            person.setHoliday(holiday);
+//            people.add(person);
+//        }
+//        holiday.setPeople(people);
+//        holidayService.saveHoliday(holiday);
+//
+//        return "redirect:/holidays";
+//    }
 
 
 //    @RequestMapping("/holiday/{id}")
