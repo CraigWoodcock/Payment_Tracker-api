@@ -26,7 +26,11 @@ public class HolidayController {
     @GetMapping("/{id}")
     public String getHoliday(@PathVariable Integer id, Model model) {
         Holiday holiday = holidayService.findHolidayById(id);
-        model.addAttribute("holiday", holiday);
+        if (holiday != null) {
+            model.addAttribute("holiday", holiday);
+            model.addAttribute("formattedTotalAmount", holidayService.formatAmount(holiday.getTotalAmount()));
+        }
+
         return "holidayDetails";
 
     }

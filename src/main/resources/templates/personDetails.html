@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Person Details</title>
+</head>
+<body>
+<h1 th:text="${person.name}">Person Name</h1>
+<p>To Pay: <span th:text="${person.toPay}">To Pay</span></p>
+<h2>Payments:</h2>
+<ul>
+    <li th:each="payment : ${person.payments}">
+        Amount: <span th:text="${payment.amount}">Amount</span> - Date: <span th:text="${payment.date}">Date</span>
+    </li>
+</ul>
+<a href="/holidays">Back to Holidays</a>
+</body>
+</html>

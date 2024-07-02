@@ -16,7 +16,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/people/{id}")
     public String getPerson(@PathVariable Integer id, Model model) {
         Person person = personService.findPersonById(id);
         model.addAttribute("person", person);

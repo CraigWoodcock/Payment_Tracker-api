@@ -60,4 +60,13 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", person=" + person +
+                ", amount=" + amount +
+                ", paymentDate=" + paymentDate +
+                '}';
+    }
 }
