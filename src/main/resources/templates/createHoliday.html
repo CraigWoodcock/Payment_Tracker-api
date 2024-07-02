@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Payment Plan</title>
+</head>
+<body>
+<h1>Create a New Payment Plan</h1>
+<form th:action="@{/holidays/create}" method="post">
+    <label for="name">Plan Name:</label>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="totalAmount">Total Amount:</label>
+    <input type="number" id="totalAmount" name="totalAmount" step="0.01"><br>
+
+    <label for="numPeople">Number of People:</label>
+    <input type="number" id="numPeople" name="numPeople"><br>
+
+    <label for="personNames">Person Names (comma-separated):</label>
+    <input type="text" id="personNames" name="personNames"><br>
+
+    <button type="submit">Create Payment Plan</button>
+</form>
+<a th:href="@{/holidays}">View Payment Plans</a>
+<a th:href="@{/}">Back to Home</a>
+</body>
+</html>
