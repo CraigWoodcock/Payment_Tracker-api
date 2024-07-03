@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -33,7 +35,8 @@ public class PaymentController {
 
     @PostMapping("/add")
     public String addPayment(@RequestParam Integer personId, @RequestParam BigDecimal amount) {
-        personService.addPayment(personId, amount);
+        LocalDate paymentDate = LocalDate.now();
+        personService.addPayment(personId, amount, paymentDate);
         return "redirect:/holidays";
     }
 
@@ -41,4 +44,6 @@ public class PaymentController {
     public Iterable<Payment> getAllPayments() {
         return paymentService.getAllPayments();
     }
+
+
 }

@@ -9,7 +9,7 @@
 <h2>Payments:</h2>
 <ul>
     <li th:each="payment : ${person.payments}">
-        Amount: <span th:text="${payment.amount}">Amount</span> - Date: <span th:text="${payment.date}">Date</span>
+        Amount: <span th:text="${payment.amount}">Amount</span> - Date: <span th:text="${payment.paymentDate}">Date</span>
     </li>
 </ul>
 <a href="/holidays">Back to Holidays</a>

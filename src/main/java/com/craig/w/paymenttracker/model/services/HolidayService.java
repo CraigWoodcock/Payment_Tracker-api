@@ -59,6 +59,7 @@ public class HolidayService {
             person.setName(personName.trim());
             person.setToPay(amountPerPerson);
             person.setHoliday(savedHoliday);
+            person.setPayments(new ArrayList<>());
             people.add(person);
         }
         personRepository.saveAll(people);

@@ -4,10 +4,14 @@ import com.craig.w.paymenttracker.model.entities.Payment;
 import com.craig.w.paymenttracker.model.entities.Person;
 import com.craig.w.paymenttracker.model.repositories.PaymentRepository;
 import com.craig.w.paymenttracker.model.repositories.PersonRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -28,14 +32,15 @@ public class PersonService {
     public List<Person> findPeopleByHolidayId(Integer holidayId) {
         return personRepository.findByHolidayId(holidayId);
     }
-
-    public void addPayment(Integer personId, BigDecimal amount) {
+@Transactional
+    public void addPayment(Integer personId, BigDecimal amount, LocalDate paymentDate) {
 
         Person person = personRepository.findById(personId).orElse(null);
         if (person != null) {
             Payment payment = new Payment();
             payment.setAmount(amount);
             payment.setPerson(person);
+            payment.setPaymentDate(paymentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             paymentRepository.save(payment);
 
             person.setToPay(person.getToPay().subtract(amount));
