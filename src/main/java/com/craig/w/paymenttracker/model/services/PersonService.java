@@ -2,6 +2,7 @@ package com.craig.w.paymenttracker.model.services;
 
 import com.craig.w.paymenttracker.model.entities.Payment;
 import com.craig.w.paymenttracker.model.entities.Person;
+import com.craig.w.paymenttracker.model.entities.PersonWithTotalPaid;
 import com.craig.w.paymenttracker.model.repositories.PaymentRepository;
 import com.craig.w.paymenttracker.model.repositories.PersonRepository;
 import jakarta.transaction.Transactional;
@@ -13,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -23,7 +25,15 @@ public class PersonService {
     @Autowired
     private PaymentRepository paymentRepository;
 
-
+    public List<PersonWithTotalPaid> getPeopleWithTotalPaidByHolidayId(Integer holidayId) {
+        List<Person> people = personRepository.findByHolidayId(holidayId);
+        return people.stream().map(person -> {
+            BigDecimal totalPaid = person.getPayments().stream()
+                    .map(Payment::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            return new PersonWithTotalPaid(person, totalPaid);
+        }).collect(Collectors.toList());
+    }
 
     public Person findPersonById(Integer id) {
         return personRepository.findById(id).orElse(null);

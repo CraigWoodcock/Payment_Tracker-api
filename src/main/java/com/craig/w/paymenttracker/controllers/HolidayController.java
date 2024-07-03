@@ -1,13 +1,16 @@
 package com.craig.w.paymenttracker.controllers;
 
 import com.craig.w.paymenttracker.model.entities.Holiday;
+import com.craig.w.paymenttracker.model.entities.PersonWithTotalPaid;
 import com.craig.w.paymenttracker.model.services.HolidayService;
+import com.craig.w.paymenttracker.model.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -16,6 +19,8 @@ public class HolidayController {
 
     @Autowired
     private HolidayService holidayService;
+    @Autowired
+    private PersonService personService;
 
     @GetMapping
     public String listHolidays(Model model) {
@@ -26,9 +31,14 @@ public class HolidayController {
     @GetMapping("/{id}")
     public String getHoliday(@PathVariable Integer id, Model model) {
         Holiday holiday = holidayService.findHolidayById(id);
+        List<PersonWithTotalPaid> peopleWithTotalPaid = personService.getPeopleWithTotalPaidByHolidayId(id);
         if (holiday != null) {
             model.addAttribute("holiday", holiday);
+
+            model.addAttribute("peopleWithTotalPaid", peopleWithTotalPaid);
+
             model.addAttribute("formattedTotalAmount", holidayService.formatAmount(holiday.getTotalAmount()));
+
         }
 
         return "holidayDetails";
