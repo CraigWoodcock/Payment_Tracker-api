@@ -1,8 +1,10 @@
 package com.craig.w.paymenttracker.model.services;
 
 import com.craig.w.paymenttracker.model.entities.Holiday;
+import com.craig.w.paymenttracker.model.entities.Payment;
 import com.craig.w.paymenttracker.model.entities.Person;
 import com.craig.w.paymenttracker.model.repositories.HolidayRepository;
+import com.craig.w.paymenttracker.model.repositories.PaymentRepository;
 import com.craig.w.paymenttracker.model.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class HolidayService {
 
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     public List<Holiday> findAllHolidays() {
         return holidayRepository.findAll();
@@ -69,5 +73,14 @@ public class HolidayService {
     public String formatAmount(BigDecimal amount) {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.UK);
         return currencyFormat.format(amount);
+    }
+
+    public List<Payment> getAllPayments(Holiday holiday) {
+    List<Payment> allPayments = new ArrayList<>();
+    for(Person person : holiday.getPeople()){
+        allPayments.addAll(person.getPayments());
+    }
+
+        return allPayments;
     }
 }

@@ -7,34 +7,7 @@
 <!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
     <title>Holiday Details</title>
 </head>
-<!--<body>-->
-<!--<h1 th:text="${holiday.name}">Plan Details</h1>-->
-<!--<p>Total Amount: £<span th:text="${holiday.totalAmount}">Total Amount</span></p>-->
-<!--<p>Number of People: <span th:text="${holiday.numPeople}">Number of People</span></p>-->
-<!--<h2>People:</h2>-->
-<!--<ul>-->
-<!--    <li th:each="person : ${holiday.people}">-->
-<!--        <a th:href="@{/people/{id}(id=${person.id})}" th:text="${person.name}">Person Name</a>-->
-<!--        <p>- Remaining Balance: £<span th:text="${person.toPay}">Amount</span></p>-->
-<!--        <p>- Total Paid: £<span th:text="${#numbers.formatDecimal(person.payments.stream().mapToDouble(p ->.amount.doubleValue()).sum(), 1, 2)}">Total Paid</span></p>-->
-<!--        <h3>Payments:</h3>-->
-<!--            <ul>-->
 
-<!--            <li th:each="payment : ${person.payments}">-->
-<!--                Amount: £<span th:text="${payment.amount}">Amount</span> - Date: <span th:text="${#dates.format(payment.paymentDate, 'dd-MM-yyyy')}">Date</span>-->
-<!--            </li>-->
-
-<!--            </ul><br>-->
-<!--    </li>-->
-<!--</ul>-->
-
-
-<!--<a th:href="@{/payments/add(holidayId=${holiday.id})}">Add Payment</a><br>-->
-<!--<a th:href="@{/holidays}">Back to Holidays</a>-->
-
-
-
-<!--</body>-->
 <body>
 <h1 th:text="${holiday.name}">Plan Details</h1>
 <p>Total Amount: £<span th:text="${holiday.totalAmount}">Total Amount</span></p>
@@ -46,19 +19,25 @@
         <a th:href="@{/people/{id}(id=${personWithTotalPaid.person.id})}" th:text="${personWithTotalPaid.person.name}">Person Name</a>
         <p>- Remaining Balance: £<span th:text="${personWithTotalPaid.person.toPay}">Amount</span></p>
         <p>- Total Paid: £<span th:text="${personWithTotalPaid.totalPaid}">Total Paid</span></p>
-
-        <h3>Payments:</h3>
-        <ul>
-            <li th:each="payment : ${personWithTotalPaid.person.payments}">
-                Amount: £<span th:text="${payment.amount}">Amount</span> - Date: <span th:text="${#dates.format(payment.paymentDate, 'dd-MM-yyyy')}">Date</span>
-            </li>
-        </ul>
-        <br>
     </li>
 </ul>
+        <h3>Payments:</h3>
+<!--        <ul>-->
+<!--            <li th:each="payment : ${personWithTotalPaid.person.payments}">-->
+<!--                Amount: £<span th:text="${payment.amount}">Amount</span> - Date: <span th:text="${#dates.format(payment.paymentDate, 'dd-MM-yyyy')}">Date</span>-->
+<!--            </li>-->
+<!--        </ul>-->
+<ul>
+    <li th:each="payment : ${allPayments}" >
+        <p><span th:text="${payment.person.name}">Person Name</span> - £<span th:text="${payment.amount}"></span> - Date :<span th:text="${#dates.format(payment.paymentDate, 'dd-MM-yyyy')}">Date</span></p>
+
+    </li>
+</ul>
+        <br>
+
 
 <a th:href="@{/payments/add(holidayId=${holiday.id})}">Add Payment</a><br>
-<a th:href="@{/holidays}">Back to Holidays</a>
+<a th:href="@{/holidays}">Back to Payment Plans</a>
 
 </body>
 </html>

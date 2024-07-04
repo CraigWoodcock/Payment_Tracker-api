@@ -1,6 +1,7 @@
 package com.craig.w.paymenttracker.controllers;
 
 import com.craig.w.paymenttracker.model.entities.Holiday;
+import com.craig.w.paymenttracker.model.entities.Payment;
 import com.craig.w.paymenttracker.model.entities.PersonWithTotalPaid;
 import com.craig.w.paymenttracker.model.services.HolidayService;
 import com.craig.w.paymenttracker.model.services.PersonService;
@@ -32,13 +33,14 @@ public class HolidayController {
     public String getHoliday(@PathVariable Integer id, Model model) {
         Holiday holiday = holidayService.findHolidayById(id);
         List<PersonWithTotalPaid> peopleWithTotalPaid = personService.getPeopleWithTotalPaidByHolidayId(id);
+        List<Payment> allPayments = holidayService.getAllPayments(holiday);
         if (holiday != null) {
             model.addAttribute("holiday", holiday);
 
             model.addAttribute("peopleWithTotalPaid", peopleWithTotalPaid);
 
             model.addAttribute("formattedTotalAmount", holidayService.formatAmount(holiday.getTotalAmount()));
-
+            model.addAttribute("allPayments", allPayments);
         }
 
         return "holidayDetails";
